@@ -4,18 +4,22 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 
-module.exports = (env,argv) => {
-    console.log('####',env,argv);
-
-  //   // Determine the output filename based on the value of foo
-  let outputFilename ='bundle.js';
-  env.filename && (outputFilename = env.filename);
+module.exports = (env) => {
 
   return {
     mode: env.mode,
-    entry: "./src/index.js",
+    entry: {
+      index: './src/index.js',
+      another: './src/another-module.js',
+    },
+    //The SplitChunksPlugin allows us to extract common dependencies into an existing entry chunk or an entirely new chunk. 
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
     output: {
-     filename: outputFilename,
+      filename: '[name].bundle.js',
       path: path.resolve(__dirname, "dist"),
       clean: true,
     },
