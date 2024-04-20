@@ -1,1 +1,0 @@
-{"version":3,"file":"styles.css","mappings":"AAAA;IACI,UAAU;IACV,mCAAmC;IACnC,YAAY;IACZ,uBAAuB;EACzB,C","sources":["webpack://webpack-demo/./src/style.css"],"sourcesContent":[".hello {\n    color: red;\n    /* background: url('./icon.png'); */\n    display:flex;\n    justify-content: center;\n  }"],"names":[],"sourceRoot":""}
