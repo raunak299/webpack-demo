@@ -1,21 +1,20 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const {merge} = require("webpack-merge"); 
+const modeConfig = (env) => require(`./build-utils/webpack.${env.mode}`)(env);
 
-module.exports = (env,argv) => {
-    console.log('####',env,argv);
-
-  //   // Determine the output filename based on the value of foo
-  let outputFilename ='bundle.js';
+module.exports = (env) => {
+  const { mode } = env;
+  let outputFilename = 'bundle.js';
   env.filename && (outputFilename = env.filename);
 
-  return {
-    mode: env.mode,
+  const baseConfig = {
+    mode: mode,
     entry: "./src/index.js",
     output: {
-     filename: outputFilename,
+      filename: outputFilename,
       path: path.resolve(__dirname, "dist"),
       clean: true,
     },
@@ -28,7 +27,6 @@ module.exports = (env,argv) => {
         {
           test: /\.(png|svg|jpg|gif)$/,
           type: "asset/resource",
-          // use: [{loader: 'url-loader', options: {limit: 8192}}],
         },
         {
           test: /\.(csv|tsv)$/i,
@@ -41,11 +39,12 @@ module.exports = (env,argv) => {
       ],
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin(),
       new MiniCssExtractPlugin({
         filename: "styles.css",
       }),
     ],
   };
+
+  return merge(baseConfig,modeConfig(env));
 };
