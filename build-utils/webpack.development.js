@@ -5,7 +5,7 @@ module.exports = (env) =>  {
   devtool: 'inline-source-map',
   output: {
     // this will cache the build for development
-    filename: 'bundle.[contenthash].js',
+    filename: '[name].[contenthash].js',
   },
   // this will show the progress of the build
   plugins: [new webpack.ProgressPlugin()

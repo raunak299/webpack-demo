@@ -3,7 +3,7 @@ module.exports = (env)=>{
         devtool: 'source-map',
         output: {
             // this will cache the build for production
-            filename: 'bundle.prod.[contenthash].js',
+            filename: '[name].prod.[contenthash].js',
           },
     };
 }
