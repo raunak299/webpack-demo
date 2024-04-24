@@ -1,5 +1,6 @@
 import axios from "axios";
 import dayjs from 'dayjs';
+import {cube} from './math'
 
 // Function to fetch data from a given URL using Axios
 async function fetchData(url) {
@@ -28,7 +29,11 @@ function getComponent() {
     .then(({ default: { join } }) => {
       const element = document.createElement("div");
 
-      element.innerHTML = join(["Hello", "webpack"], " ");
+      element.innerHTML = [
+        'Hello webpack!',
+        '5 cubed is equal to ' + cube(5)
+      ].join('\n\n');
+
       //using axios
       fetchData('https://jsonplaceholder.typicode.com/posts/1');
       // using dayjs
