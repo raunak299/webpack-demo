@@ -7,8 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack",
     "webpack-dev-server": "webpack-dev-server",
-    "start": "npm run webpack-dev-server -- --env mode=development",
-    "build": "npm run webpack -- --env mode=production --env filename=bundle.prod.js"
+    "pre-start": "webpack --config ./build-utils/webpack.dll.config.js  --env mode=development ",
+     "pre-build": "webpack --config ./build-utils/webpack.dll.config.js  --env mode=production ",
+    "start": " npm run webpack -- --env mode=development",
+    "build": "npm run webpack -- --env mode=production",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +32,8 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "axios": "^1.6.8",
+    "dayjs": "^1.11.10",
     "lodash": "^4.17.21"
   }
 }
