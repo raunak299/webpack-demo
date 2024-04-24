@@ -11,7 +11,8 @@
      "pre-build": "webpack --config ./build-utils/webpack.dll.config.js  --env mode=production ",
     "start": " npm run webpack -- --env mode=development",
     "build": "npm run webpack -- --env mode=production",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "postinstall": "rm -rf .webpack_cache"
   },
   "keywords": [],
   "author": "",

@@ -62,6 +62,17 @@ module.exports = (env) => {
             },
           },
         },
+        cache: {
+          // Enable caching
+          //By default, webpack's built-in cache is stored in memory and is not persistent across different builds.
+          //In some scenarios, such as CI/CD environments or multi-stage build pipelines, it may be advantageous to use a persistent cache stored on disk.
+          // This can help maintain cache consistency and improve build performance, especially in environments where webpack instances are frequently started and stopped.
+          type: 'filesystem',
+          cacheDirectory: path.resolve(__dirname, '.webpack_cache'),
+          buildDependencies: {
+            config: [__filename],
+          },
+        },
   };
 
   return merge(baseConfig, modeConfig(env));
