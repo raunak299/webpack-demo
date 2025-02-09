@@ -8,7 +8,7 @@ const modeConfig = (env) => require(`./build-utils/webpack.${env.mode}`)(env);
 const presetConfig = require("./build-utils/loadPresets");
 
 module.exports = (env) => {
-  const { mode,presets=[] } = env;
+  const { mode, presets = [] } = env;
 
   const baseConfig = {
     mode: mode,
@@ -43,38 +43,7 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: "styles.css",
       }),
-      // //removing it for now , not working somehow
-      //  new webpack.DllReferencePlugin({
-      //       manifest: path.join(__dirname, './dist', 'vendor-manifest.json')
-      //     }),
     ],
-    // used to split the code into separate chunks and improve the performance of the application and achieve better caching
-    optimization: {
-      moduleIds: "deterministic",
-      // Setting runtimeChunk: 'single' in Webpack optimizes the build by ensuring that only one runtime chunk is generated for multiple entry point also separate runtime code from main bundle, leading to better caching and potentially smaller bundle sizes. If you don't specify 'single', Webpack may generate multiple runtime chunks, which could impact caching efficiency and result in slightly larger bundles.
-      runtimeChunk: "single",
-      // splitChunks focuses on optimizing the code split into separate chunk
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "node_modules_vendor",
-            chunks: "all",
-          },
-        },
-      },
-    },
-    cache: {
-      // Enable caching
-      //By default, webpack's built-in cache is stored in memory and is not persistent across different builds.
-      //In some scenarios, such as CI/CD environments or multi-stage build pipelines, it may be advantageous to use a persistent cache stored on disk.
-      // This can help maintain cache consistency and improve build performance, especially in environments where webpack instances are frequently started and stopped.
-      type: "filesystem",
-      cacheDirectory: path.resolve(__dirname, ".webpack_cache"),
-      buildDependencies: {
-        config: [__filename],
-      },
-    },
   };
 
   return merge(baseConfig, modeConfig(env), presetConfig({ mode, presets }));
