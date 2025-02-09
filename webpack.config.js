@@ -2,12 +2,12 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const {merge} = require("webpack-merge"); 
+const { merge } = require("webpack-merge");
 const modeConfig = (env) => require(`./build-utils/webpack.${env.mode}`)(env);
 
 module.exports = (env) => {
   const { mode } = env;
-  let outputFilename = 'bundle.js';
+  let outputFilename = "bundle.js";
   env.filename && (outputFilename = env.filename);
 
   const baseConfig = {
@@ -16,7 +16,7 @@ module.exports = (env) => {
     output: {
       filename: outputFilename,
       path: path.resolve(__dirname, "dist"),
-      clean: true,
+      clean: true, // cleans files in dist each time this config runs
     },
     module: {
       rules: [
@@ -46,5 +46,5 @@ module.exports = (env) => {
     ],
   };
 
-  return merge(baseConfig,modeConfig(env));
+  return merge(baseConfig, modeConfig(env));
 };
