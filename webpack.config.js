@@ -42,26 +42,10 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: "styles.css",
       }),
-     new webpack.DllReferencePlugin({
-          manifest: path.join(__dirname, './dist', 'vendor-manifest.json')
-        }), 
+      new webpack.DllReferencePlugin({
+        manifest: path.join(__dirname, "./dist", "vendor-manifest.json"),
+      }),
     ],
-        // used to split the code into separate chunks and improve the performance of the application and achieve better caching
-        optimization: {
-          moduleIds: "deterministic",
-          // Setting runtimeChunk: 'single' in Webpack optimizes the build by ensuring that only one runtime chunk is generated for multiple entry point also separate runtime code from main bundle, leading to better caching and potentially smaller bundle sizes. If you don't specify 'single', Webpack may generate multiple runtime chunks, which could impact caching efficiency and result in slightly larger bundles.
-          runtimeChunk: "single",
-          // splitChunks focuses on optimizing the code split into separate chunk
-          splitChunks: {
-            cacheGroups: {
-              vendor: {
-                test: /[\\/]node_modules[\\/]/,
-                name: "node_modules_vendor",
-                chunks: "all",
-              },
-            },
-          },
-        },
   };
 
   return merge(baseConfig, modeConfig(env));
